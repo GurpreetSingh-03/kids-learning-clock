@@ -62,10 +62,10 @@ export default function AboutPage() {
                 Why We Built Toby's Clock
               </h2>
               <p>
-                Reading a traditional **learning clock** can be challenging for kids aged 4–8. With thick mechanical hands and numbers placed around circles, children must map angles directly into hours and minutes. 
+                Reading a traditional <strong className="font-extrabold text-purple-700">learning clock</strong> can be challenging for kids aged 4–8. With thick mechanical hands and numbers placed around circles, children must map angles directly into hours and minutes. 
               </p>
               <p className="mt-2">
-                **Tick Tock Time** turns clock practice into a fun, responsive experience. By combining bright visuals, audio ticking feedback, and instant helpful hints, children build spatial memory and gain confidence in reading **teaching clocks** and **time teaching watches**.
+                <strong className="font-extrabold text-purple-700">Tick Tock Time</strong> turns clock practice into a fun, responsive experience. By combining bright visuals, audio ticking feedback, and instant helpful hints, children build spatial memory and gain confidence in reading <strong className="font-extrabold text-purple-700">teaching clocks</strong> and <strong className="font-extrabold text-purple-700">time teaching watches</strong>.
               </p>
             </div>
 
@@ -90,7 +90,7 @@ export default function AboutPage() {
                 Parent & Teacher Guide
               </h2>
               <p>
-                To make the most of this **teaching clock**, practice alongside your child. Ask them questions like *"Which hand is shorter?"* or *"How many minutes pass when the red hand moves from 12 to 1?"* Encourage them to drag the interactive hands slowly to listen to the mechanical tick chimes!
+                To make the most of this <strong className="font-extrabold text-purple-700">teaching clock</strong>, practice alongside your child. Ask them questions like <em className="text-purple-600 font-bold">"Which hand is shorter?"</em> or <em className="text-purple-600 font-bold">"How many minutes pass when the red hand moves from 12 to 1?"</em> Encourage them to drag the interactive hands slowly to listen to the mechanical tick chimes!
               </p>
             </div>
           </div>

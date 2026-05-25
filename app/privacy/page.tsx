@@ -43,10 +43,10 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-xl font-extrabold text-purple-600 mb-2 flex items-center gap-2">
                 <Heart className="w-6 h-6 text-purple-500" />
-                Our Commitment to Child Safety (COPPA Compliance)
+                Our Commitment to Child Safety & COPPA Guidelines
               </h2>
               <p>
-                At **Tick Tock Time**, we take children's privacy extremely seriously. Our website is designed for kids, parents, and educators. We are fully compliant with the **Children's Online Privacy Protection Act (COPPA)**.
+                At <strong className="font-extrabold text-purple-700">Tick Tock Time</strong>, we take children's privacy extremely seriously. Our website is designed for kids, parents, and educators. We do not collect personal information from children and are committed to protecting children's privacy in accordance with the <strong className="font-extrabold text-purple-700">Children's Online Privacy Protection Act (COPPA)</strong> guidelines.
               </p>
             </div>
 
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
             <div className="pt-6 border-t border-slate-100">
               <p className="text-sm text-slate-500 font-bold">
                 If you have any questions or concerns regarding child safety and privacy in Tick Tock Time, please contact us at: 
-                <span className="block mt-1 text-purple-600">privacy@ticktocktime.com</span>
+                <span className="block mt-1 text-purple-600">kidslearningclock@gmail.com</span>
               </p>
             </div>
           </div>

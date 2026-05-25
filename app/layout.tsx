@@ -39,6 +39,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.kidslearningclock.fun",
     siteName: "Tick Tock Time",
+    images: [
+      {
+        url: "https://www.kidslearningclock.fun/og-image.png",
+        width: 512,
+        height: 512,
+        alt: "Tick Tock Time — Toby the Clock Buddy mascot",
+      },
+    ],
   },
   robots: {
     index: true,
@@ -50,6 +58,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: "https://www.kidslearningclock.fun",
   },
 };
 

@@ -154,11 +154,17 @@ export default function Home() {
         <div className="text-slate-500 font-bold text-xs md:text-sm text-center bg-white/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
           🏫 Designed for elementary math learners • Free & Private
         </div>
-        <div className="flex gap-4 text-xs font-black text-purple-600">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-black text-purple-600">
           <Link href="/about" className="hover:text-purple-800 transition-colors">About & How to Play</Link>
-          <span>•</span>
+          <span className="text-slate-300">•</span>
+          <Link href="/blog" className="hover:text-purple-800 transition-colors">Blog & Resources</Link>
+          <span className="text-slate-300">•</span>
+          <Link href="/faq" className="hover:text-purple-800 transition-colors">FAQ</Link>
+          <span className="text-slate-300">•</span>
+          <Link href="/contact" className="hover:text-purple-800 transition-colors">Contact</Link>
+          <span className="text-slate-300">•</span>
           <Link href="/privacy" className="hover:text-purple-800 transition-colors">Privacy Policy</Link>
-          <span>•</span>
+          <span className="text-slate-300">•</span>
           <Link href="/terms" className="hover:text-purple-800 transition-colors">Terms of Service</Link>
         </div>
       </div>

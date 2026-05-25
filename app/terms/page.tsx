@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Scale, ScaleIcon, FileText } from "lucide-react";
+import { ArrowLeft, Scale, FileText } from "lucide-react";
 import BackgroundShapes from "@/components/BackgroundShapes";
 
 export default function TermsPage() {
@@ -46,7 +46,7 @@ export default function TermsPage() {
                 1. Acceptance of Terms
               </h2>
               <p>
-                By using **Tick Tock Time**, you agree to these Terms of Service. If you do not agree to these terms, you should not access or use the application.
+                By using <strong className="font-extrabold text-purple-700">Tick Tock Time</strong>, you agree to these Terms of Service. If you do not agree to these terms, you should not access or use the application.
               </p>
             </div>
 
@@ -87,7 +87,7 @@ export default function TermsPage() {
             <div className="pt-6 border-t border-slate-100">
               <p className="text-sm text-slate-500 font-bold">
                 For questions regarding terms, licensing, or integration queries, contact us at: 
-                <span className="block mt-1 text-purple-600">hello@ticktocktime.com</span>
+                <span className="block mt-1 text-purple-600">kidslearningclock@gmail.com</span>
               </p>
             </div>
           </div>
