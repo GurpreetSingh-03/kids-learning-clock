@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Fallback domain; search engines will resolve this based on the deployed host
-  const baseUrl = "https://ticktocktime.com";
+  const baseUrl = "https://www.kidslearningclock.fun";
   
   return [
     {

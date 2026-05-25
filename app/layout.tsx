@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description: "Fun, colorful, and interactive analog clock games designed to help children tell time easily.",
     type: "website",
     locale: "en_US",
-    url: "https://ticktocktime.com",
+    url: "https://www.kidslearningclock.fun",
     siteName: "Tick Tock Time",
   },
   robots: {

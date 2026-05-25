@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://ticktocktime.com";
+  const baseUrl = "https://www.kidslearningclock.fun";
   
   return {
     rules: {
