@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import AnimatedButton from "./AnimatedButton";
@@ -33,7 +33,7 @@ export default function GameCard({
   const buttonVariant = isBlue ? "secondary" : "orange";
 
   return (
-    <motion.div
+    <m.div
       whileHover={{ y: -10, scale: 1.03 }}
       transition={{ type: "spring", stiffness: 300, damping: 18 }}
       className={`
@@ -81,6 +81,6 @@ export default function GameCard({
           </AnimatedButton>
         </span>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Star, Trophy, ArrowRight, RotateCcw } from "lucide-react";
 import AnimatedButton from "./AnimatedButton";
 import { useEffect } from "react";
@@ -59,7 +59,7 @@ export default function ResultsModal({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Backdrop */}
-          <motion.div
+          <m.div
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             variants={backdropVariants}
             initial="hidden"
@@ -69,7 +69,7 @@ export default function ResultsModal({
           />
 
           {/* Modal Container */}
-          <motion.div
+          <m.div
             className="bg-white rounded-3xl border-4 border-purple-400 p-8 w-full max-w-md shadow-2xl relative z-10 text-center flex flex-col items-center"
             variants={modalVariants}
             initial="hidden"
@@ -77,7 +77,7 @@ export default function ResultsModal({
             exit="exit"
           >
             {/* Celebration Title */}
-            <motion.h2
+            <m.h2
               className="text-3xl md:text-4xl font-black text-purple-600 mb-2 font-sans tracking-wide"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
@@ -87,21 +87,21 @@ export default function ResultsModal({
                 : accuracy >= 70
                 ? "Super Job!"
                 : "Great Try!"}
-            </motion.h2>
+            </m.h2>
             <p className="text-slate-500 font-bold mb-6">
               You are becoming a clock master! ⏰
             </p>
 
             {/* Trophy Icon Area */}
             <div className="relative mb-6">
-              <motion.div
+              <m.div
                 initial={{ rotate: -15, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: "spring" as const, delay: 0.2, stiffness: 200, damping: 15 }}
                 className="w-32 h-32 bg-yellow-100 rounded-full flex items-center justify-center border-4 border-yellow-300"
               >
                 <Trophy className="w-16 h-16 text-yellow-500 fill-yellow-200" />
-              </motion.div>
+              </m.div>
 
               {/* Decorative small stars popping out */}
               {[...Array(6)].map((_, i) => {
@@ -110,7 +110,7 @@ export default function ResultsModal({
                 const x = Math.sin(angle) * dist;
                 const y = -Math.cos(angle) * dist;
                 return (
-                  <motion.div
+                  <m.div
                     key={i}
                     className="absolute text-yellow-400 top-12 left-12"
                     initial={{ x: 0, y: 0, scale: 0 }}
@@ -118,7 +118,7 @@ export default function ResultsModal({
                     transition={{ delay: 0.4 + i * 0.05, duration: 0.4 }}
                   >
                     <Star className="w-5 h-5 fill-current" />
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
@@ -126,7 +126,7 @@ export default function ResultsModal({
             {/* Animated Stars Rating */}
             <div className="flex justify-center gap-2 mb-6">
               {[1, 2, 3].map((star) => (
-                <motion.div
+                <m.div
                   key={star}
                   initial={{ scale: 0 }}
                   animate={{ scale: star <= starRating ? 1 : 0.8 }}
@@ -138,7 +138,7 @@ export default function ResultsModal({
                   }`}
                 >
                   <Star className="w-10 h-10 stroke-2" />
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -177,7 +177,7 @@ export default function ResultsModal({
                 Main Menu
               </AnimatedButton>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

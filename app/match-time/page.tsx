@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Sparkles, Smile, RefreshCw } from "lucide-react";
@@ -9,11 +9,13 @@ import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
-import ConfettiEffect from "@/components/ConfettiEffect";
-import ResultsModal from "@/components/ResultsModal";
-import BackgroundShapes from "@/components/BackgroundShapes";
+import dynamic from "next/dynamic";
 import { generateRandomTime, generateMultipleChoiceOptions, formatTime, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
+
+const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
+const ConfettiEffect = dynamic(() => import("@/components/ConfettiEffect"), { ssr: false });
+const ResultsModal = dynamic(() => import("@/components/ResultsModal"), { ssr: false });
 
 const TOTAL_QUESTIONS = 10;
 
@@ -151,7 +153,7 @@ export default function MatchTimeGame() {
         </div>
 
         {/* Game Area Card */}
-        <motion.div
+        <m.div
           key={questionIndex} // keyframes trigger slide-in on next question
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -182,7 +184,7 @@ export default function MatchTimeGame() {
 
           {/* Mascot Section */}
           <div className="flex items-center gap-4 w-full max-w-md mb-6 justify-center select-none">
-            <motion.div
+            <m.div
               animate={
                 isCorrect === true
                   ? { y: [0, -15, 0], rotate: [0, 8, -8, 0] }
@@ -204,7 +206,7 @@ export default function MatchTimeGame() {
                 height={80}
                 className="object-contain"
               />
-            </motion.div>
+            </m.div>
 
             {/* Mascot Speech Bubble */}
             <div className="flex-1 bg-white border-2 border-purple-300 rounded-2xl px-4 py-2.5 shadow-sm relative">
@@ -235,7 +237,7 @@ export default function MatchTimeGame() {
               const shouldWiggle = isAnswered && isSelected && !isCorrect;
 
               return (
-                <motion.div
+                <m.div
                   key={option}
                   animate={shouldWiggle ? { x: [0, -10, 10, -10, 10, 0] } : {}}
                   transition={{ duration: 0.4 }}
@@ -248,7 +250,7 @@ export default function MatchTimeGame() {
                   >
                     {option}
                   </AnimatedButton>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
@@ -256,7 +258,7 @@ export default function MatchTimeGame() {
           {/* Bottom Actions: Next Question */}
           <AnimatePresence>
             {isAnswered && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
@@ -269,10 +271,10 @@ export default function MatchTimeGame() {
                 >
                   {questionIndex + 1 === TOTAL_QUESTIONS ? "Finish Game! 🏆" : "Next Question ➡️"}
                 </AnimatedButton>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );

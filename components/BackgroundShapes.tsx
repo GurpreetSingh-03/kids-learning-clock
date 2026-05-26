@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface FloatingItem {
@@ -46,7 +46,7 @@ export default function BackgroundShapes() {
       {shapes.map((shape) => {
         if (shape.type === "blob") {
           return (
-            <motion.div
+            <m.div
               key={shape.id}
               className={`absolute rounded-full filter blur-3xl ${shape.color}`}
               style={{
@@ -73,7 +73,7 @@ export default function BackgroundShapes() {
 
         if (shape.type === "cloud") {
           return (
-            <motion.svg
+            <m.svg
               key={shape.id}
               className={`absolute ${shape.color} filter drop-shadow-sm`}
               style={{
@@ -92,13 +92,13 @@ export default function BackgroundShapes() {
               }}
             >
               <path d="M44 24a12 12 0 00-22.6-5.2A16 16 0 006 32a16 16 0 0016 16h22a14 14 0 000-28z" />
-            </motion.svg>
+            </m.svg>
           );
         }
 
         // Rotating Stars
         return (
-          <motion.svg
+          <m.svg
             key={shape.id}
             className={`absolute ${shape.color}`}
             style={{
@@ -122,7 +122,7 @@ export default function BackgroundShapes() {
             }}
           >
             <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.41l8.2-1.192z" />
-          </motion.svg>
+          </m.svg>
         );
       })}
     </div>

@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import GameCard from "@/components/GameCard";
-import BackgroundShapes from "@/components/BackgroundShapes";
+import dynamic from "next/dynamic";
+
+const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
 
 export default function Home() {
   // Stagger variants for the game cards
@@ -48,7 +50,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-6">
             
             {/* Toby Image Container */}
-            <motion.div
+            <m.div
               animate={{
                 y: [0, -10, 0],
                 rotate: [0, 2, -2, 0],
@@ -67,26 +69,27 @@ export default function Home() {
                 height={160}
                 className="object-contain"
                 priority
+                fetchPriority="high"
               />
               {/* Pulsing Sparkles */}
-              <motion.span
+              <m.span
                 animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="absolute -top-1 -right-1 text-3xl select-none"
               >
                 ✨
-              </motion.span>
-              <motion.span
+              </m.span>
+              <m.span
                 animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{ repeat: Infinity, duration: 2.2, delay: 0.5 }}
                 className="absolute -bottom-2 -left-1 text-2xl select-none"
               >
                 🌟
-              </motion.span>
-            </motion.div>
+              </m.span>
+            </m.div>
 
             {/* Mascot Greeting Speech Bubble */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.85, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ type: "spring", delay: 0.4 }}
@@ -106,28 +109,28 @@ export default function Home() {
               <p className="text-slate-600 font-extrabold text-base md:text-lg leading-snug">
                 Welcome to my sky castle! Let's learn how to read analog clocks together! ⏰
               </p>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Game Title */}
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
             className="text-5xl md:text-7xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-purple-500 to-orange-500 font-sans filter drop-shadow-sm select-none mt-2"
           >
             TICK TOCK TIME
-          </motion.h1>
+          </m.h1>
         </div>
 
         {/* Game Cards Container */}
-        <motion.div
+        <m.div
           variants={containerVariants}
           initial="hidden"
           animate="show"
           className="w-full flex flex-col md:flex-row gap-8 items-center justify-center px-4"
         >
-          <motion.div variants={cardItemVariants} className="w-full max-w-sm">
+          <m.div variants={cardItemVariants} className="w-full max-w-sm">
             <GameCard
               title="Match the Time"
               description="Look at the analog clock and choose the correct digital time!"
@@ -135,18 +138,20 @@ export default function Home() {
               href="/match-time"
               previewTime={{ hours: 10, minutes: 10 }}
             />
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={cardItemVariants} className="w-full max-w-sm">
-            <GameCard
-              title="Set the Clock"
-              description="Drag the hands on the clock face to match the digital target!"
-              theme="orange"
-              href="/set-clock"
-              previewTime={{ hours: 4, minutes: 30 }}
-            />
-          </motion.div>
-        </motion.div>
+          <m.div variants={cardItemVariants} className="w-full max-w-sm">
+            <m.div variants={cardItemVariants} className="w-full max-w-sm">
+              <GameCard
+                title="Set the Clock"
+                description="Drag the hands on the clock face to match the digital target!"
+                theme="orange"
+                href="/set-clock"
+                previewTime={{ hours: 4, minutes: 30 }}
+              />
+            </m.div>
+          </m.div>
+        </m.div>
       </div>
 
       {/* Footer Links for SEO crawlers and mandatory guidelines */}

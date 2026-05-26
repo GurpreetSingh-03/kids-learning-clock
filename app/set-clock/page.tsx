@@ -1,18 +1,20 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Sparkles, HelpCircle, FastForward, Check } from "lucide-react";
 import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
-import ConfettiEffect from "@/components/ConfettiEffect";
-import ResultsModal from "@/components/ResultsModal";
-import BackgroundShapes from "@/components/BackgroundShapes";
+import dynamic from "next/dynamic";
 import { generateRandomTime, formatTime, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
+
+const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
+const ConfettiEffect = dynamic(() => import("@/components/ConfettiEffect"), { ssr: false });
+const ResultsModal = dynamic(() => import("@/components/ResultsModal"), { ssr: false });
 
 const TOTAL_QUESTIONS = 10;
 
@@ -188,7 +190,7 @@ export default function SetClockGame() {
         </div>
 
         {/* Game Area Card */}
-        <motion.div
+        <m.div
           key={questionIndex}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -201,16 +203,16 @@ export default function SetClockGame() {
             <h2 className="text-lg md:text-xl font-bold text-slate-500 mb-0.5">
               Target Time:
             </h2>
-            <motion.div
+            <m.div
               animate={isChecked && isCorrect ? { scale: [1, 1.15, 1] } : {}}
               className="inline-block bg-purple-600 text-white font-mono font-black text-3xl md:text-4xl px-4 py-1.5 rounded-2xl shadow-md border-b-4 border-purple-800"
             >
               {formatTime(targetTime.hours, targetTime.minutes)}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Interactive Clock Face */}
-          <motion.div
+          <m.div
             animate={shakeTrigger ? { x: [0, -10, 10, -10, 10, 0] } : {}}
             transition={{ duration: 0.5 }}
             className={`mb-4 bg-white rounded-full p-2 border-4 shadow-md transition-colors ${
@@ -228,11 +230,11 @@ export default function SetClockGame() {
               onTimeChange={handleTimeChange}
               size="md"
             />
-          </motion.div>
+          </m.div>
 
           {/* Mascot Section */}
           <div className="flex items-center gap-4 w-full max-w-md mb-4 justify-center select-none">
-            <motion.div
+            <m.div
               animate={
                 isCorrect === true
                   ? { y: [0, -15, 0], rotate: [0, 8, -8, 0] }
@@ -254,7 +256,7 @@ export default function SetClockGame() {
                 height={80}
                 className="object-contain"
               />
-            </motion.div>
+            </m.div>
 
             {/* Mascot Speech Bubble */}
             <div className="flex-1 bg-white border-2 border-purple-300 rounded-2xl px-4 py-2.5 shadow-sm relative">
@@ -309,7 +311,7 @@ export default function SetClockGame() {
               </>
             )}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );

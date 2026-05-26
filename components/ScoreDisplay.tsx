@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { m, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import Link from "next/link";
 import { Home, Volume2, VolumeX, Star } from "lucide-react";
@@ -80,9 +80,9 @@ export default function ScoreDisplay({
 
       {/* Star Score */}
       <div className="flex items-center gap-2 bg-yellow-100 border-b-2 border-yellow-200 text-yellow-700 px-4 py-1.5 rounded-full font-bold select-none shadow-sm">
-        <motion.div animate={controls} className="text-yellow-500">
+        <m.div animate={controls} className="text-yellow-500">
           <Star className="w-6 h-6 fill-current" />
-        </motion.div>
+        </m.div>
         <span className="text-lg md:text-xl font-black">{score}</span>
       </div>
     </div>

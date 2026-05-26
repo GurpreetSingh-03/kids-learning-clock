@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
+import FramerMotionProvider from "@/components/FramerMotionProvider";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -104,7 +105,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans min-h-full flex flex-col bg-slate-50 text-slate-800">
-        {children}
+        <FramerMotionProvider>
+          {children}
+        </FramerMotionProvider>
       </body>
     </html>
   );

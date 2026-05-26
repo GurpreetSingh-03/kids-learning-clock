@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ReactNode } from "react";
 import { useSound } from "@/hooks/useSound";
 
@@ -48,7 +48,7 @@ export default function AnimatedButton({
   };
 
   return (
-    <motion.button
+    <m.button
       onClick={handlePress}
       disabled={disabled}
       className={`
@@ -64,6 +64,6 @@ export default function AnimatedButton({
       transition={{ type: "spring", stiffness: 400, damping: 15 }}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 }

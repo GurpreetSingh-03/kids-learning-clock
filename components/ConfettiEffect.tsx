@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface ConfettiEffectProps {
@@ -77,7 +77,7 @@ export default function ConfettiEffect({ active }: ConfettiEffectProps) {
           const dy = Math.sin(p.angle) * p.speed;
 
           return (
-            <motion.div
+            <m.div
               key={p.id}
               className="absolute"
               initial={{ x: 0, y: 100, scale: 0, opacity: 1, rotate: 0 }}
@@ -120,7 +120,7 @@ export default function ConfettiEffect({ active }: ConfettiEffectProps) {
                   <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.41l8.2-1.192z" />
                 </svg>
               )}
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
