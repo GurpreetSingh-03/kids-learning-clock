@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowLeft, Mail, MessageSquare, Send, User, CheckCircle, Sparkles } from "lucide-react";
 import BackgroundShapes from "@/components/BackgroundShapes";
 import AnimatedButton from "@/components/AnimatedButton";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -38,15 +39,18 @@ export default function ContactPage() {
       <BackgroundShapes />
 
       <div className="w-full max-w-2xl z-10 flex flex-col gap-6">
-        {/* Back Navigation */}
-        <div className="w-full flex items-center justify-between">
-          <Link href="/">
-            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold">
-              <ArrowLeft className="w-5 h-5" />
-              Main Menu
-            </span>
-          </Link>
-          <div className="bg-sky-600 text-white font-extrabold px-4 py-1.5 rounded-full text-sm shadow-sm select-none flex items-center gap-1.5">
+        {/* Back Navigation & Breadcrumbs */}
+        <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
+          <div className="flex items-center gap-3">
+            <Link href="/">
+              <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
+                <ArrowLeft className="w-5 h-5" />
+                Main Menu
+              </span>
+            </Link>
+            <Breadcrumbs items={[{ name: "Contact", href: "/contact" }]} />
+          </div>
+          <div className="bg-sky-600 text-white font-extrabold px-4 py-1.5 rounded-full text-xs md:text-sm shadow-sm select-none flex items-center gap-1.5 w-fit self-end sm:self-auto">
             <Mail className="w-4 h-4" />
             Contact
           </div>

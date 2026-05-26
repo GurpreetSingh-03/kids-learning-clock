@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://www.kidslearningclock.fun/blog",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
   alternates: {

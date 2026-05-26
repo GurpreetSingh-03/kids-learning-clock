@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import BackgroundShapes from "@/components/BackgroundShapes";
 import AnimatedButton from "@/components/AnimatedButton";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const BLOG_ARTICLES = [
   {
@@ -108,15 +109,18 @@ export default function BlogPage() {
       <BackgroundShapes />
 
       <div className="w-full max-w-3xl z-10 flex flex-col gap-6">
-        {/* Back Navigation */}
-        <div className="w-full flex items-center justify-between">
-          <Link href="/">
-            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold">
-              <ArrowLeft className="w-5 h-5" />
-              Main Menu
-            </span>
-          </Link>
-          <div className="bg-gradient-to-r from-purple-600 to-sky-500 text-white font-extrabold px-4 py-1.5 rounded-full text-sm shadow-sm select-none flex items-center gap-1.5">
+        {/* Back Navigation & Breadcrumbs */}
+        <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
+          <div className="flex items-center gap-3">
+            <Link href="/">
+              <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
+                <ArrowLeft className="w-5 h-5" />
+                Main Menu
+              </span>
+            </Link>
+            <Breadcrumbs items={[{ name: "Blog", href: "/blog" }]} />
+          </div>
+          <div className="bg-gradient-to-r from-purple-600 to-sky-500 text-white font-extrabold px-4 py-1.5 rounded-full text-xs md:text-sm shadow-sm select-none flex items-center gap-1.5 w-fit self-end sm:self-auto">
             <BookOpen className="w-4 h-4" />
             Blog & Resources
           </div>
@@ -174,48 +178,50 @@ export default function BlogPage() {
               const IconComp = article.icon;
 
               return (
-                <motion.article
-                  key={article.slug}
-                  variants={cardVariants}
-                  className={`group ${colors.bg} border-2 ${colors.border} rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer relative overflow-hidden`}
-                >
-                  {/* Tag */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className={`${colors.tag} font-bold text-xs px-2.5 py-0.5 rounded-full`}
+                <motion.div key={article.slug} variants={cardVariants}>
+                  <Link href={`/blog/${article.slug}`} className="block">
+                    <article
+                      className={`group ${colors.bg} border-2 ${colors.border} rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer relative overflow-hidden`}
                     >
-                      {article.tag}
-                    </span>
-                    <span className="text-slate-400 font-bold text-xs">
-                      {article.readTime}
-                    </span>
-                  </div>
+                      {/* Tag */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span
+                          className={`${colors.tag} font-bold text-xs px-2.5 py-0.5 rounded-full`}
+                        >
+                          {article.tag}
+                        </span>
+                        <span className="text-slate-400 font-bold text-xs">
+                          {article.readTime}
+                        </span>
+                      </div>
 
-                  {/* Icon */}
-                  <div
-                    className={`w-10 h-10 ${colors.bg} border ${colors.border} rounded-xl flex items-center justify-center mb-3`}
-                  >
-                    <IconComp className={`w-5 h-5 ${colors.text}`} />
-                  </div>
+                      {/* Icon */}
+                      <div
+                        className={`w-10 h-10 ${colors.bg} border ${colors.border} rounded-xl flex items-center justify-center mb-3`}
+                      >
+                        <IconComp className={`w-5 h-5 ${colors.text}`} />
+                      </div>
 
-                  {/* Title */}
-                  <h2
-                    className={`text-lg font-extrabold ${colors.text} mb-2 leading-snug group-hover:underline decoration-2 underline-offset-2`}
-                  >
-                    {article.title}
-                  </h2>
+                      {/* Title */}
+                      <h2
+                        className={`text-lg font-extrabold ${colors.text} mb-2 leading-snug group-hover:underline decoration-2 underline-offset-2`}
+                      >
+                        {article.title}
+                      </h2>
 
-                  {/* Excerpt */}
-                  <p className="text-slate-600 font-bold text-sm leading-relaxed mb-3">
-                    {article.excerpt}
-                  </p>
+                      {/* Excerpt */}
+                      <p className="text-slate-600 font-bold text-sm leading-relaxed mb-3">
+                        {article.excerpt}
+                      </p>
 
-                  {/* Coming Soon Badge */}
-                  <div className="flex items-center gap-1.5 text-slate-400 font-extrabold text-xs">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Coming Soon
-                  </div>
-                </motion.article>
+                      {/* Read Article CTA */}
+                      <div className="flex items-center gap-1.5 text-purple-600 font-extrabold text-xs">
+                        <ArrowRight className="w-3.5 h-3.5" />
+                        Read Article
+                      </div>
+                    </article>
+                  </Link>
+                </motion.div>
               );
             })}
           </motion.div>

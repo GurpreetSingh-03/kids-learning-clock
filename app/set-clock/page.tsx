@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { m, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
-import { Sparkles, HelpCircle, FastForward, Check } from "lucide-react";
+import { Sparkles, HelpCircle, FastForward, Check, ArrowLeft } from "lucide-react";
 import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import dynamic from "next/dynamic";
 import { generateRandomTime, formatTime, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
@@ -175,6 +177,17 @@ export default function SetClockGame() {
       />
 
       <div className="w-full max-w-2xl flex flex-col gap-3 md:gap-4 z-10">
+        {/* Back Navigation & Breadcrumbs */}
+        <div className="w-full flex items-center gap-3 select-none">
+          <Link href="/">
+            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
+              <ArrowLeft className="w-4 h-4" />
+              Exit Game
+            </span>
+          </Link>
+          <Breadcrumbs items={[{ name: "Set the Clock", href: "/set-clock" }]} />
+        </div>
+
         {/* Compact Header Layout: Side by Side */}
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex-1 w-full">
@@ -188,6 +201,9 @@ export default function SetClockGame() {
             <ProgressBar current={questionIndex + 1} total={TOTAL_QUESTIONS} />
           </div>
         </div>
+
+        {/* SEO heading */}
+        <h1 className="sr-only">Set the Clock — Interactive Telling Time Practice for Kids</h1>
 
         {/* Game Area Card */}
         <m.div

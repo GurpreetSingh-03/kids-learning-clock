@@ -9,6 +9,7 @@ import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import dynamic from "next/dynamic";
 import { generateRandomTime, generateMultipleChoiceOptions, formatTime, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
@@ -138,6 +139,17 @@ export default function MatchTimeGame() {
       />
 
       <div className="w-full max-w-2xl flex flex-col gap-3 md:gap-4 z-10">
+        {/* Back Navigation & Breadcrumbs */}
+        <div className="w-full flex items-center gap-3 select-none">
+          <Link href="/">
+            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
+              <ArrowLeft className="w-4 h-4" />
+              Exit Game
+            </span>
+          </Link>
+          <Breadcrumbs items={[{ name: "Match the Time", href: "/match-time" }]} />
+        </div>
+
         {/* Compact Header Layout: Side by Side */}
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex-1 w-full">
@@ -152,9 +164,12 @@ export default function MatchTimeGame() {
           </div>
         </div>
 
+        {/* SEO heading */}
+        <h1 className="sr-only">Match the Time — Clock Reading Game for Kids</h1>
+
         {/* Game Area Card */}
         <m.div
-          key={questionIndex} // keyframes trigger slide-in on next question
+          key={questionIndex}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}

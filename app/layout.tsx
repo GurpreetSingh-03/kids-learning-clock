@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Tick Tock Time | Interactive Learning Clock & Telling Time Game for Kids",
   description: "Learn to tell time with Tick Tock Time, the ultimate free online teaching clock game! Help children ages 4-8 read analog clocks through fun matching & setting challenges.",
   keywords: [
-    // User requested keywords
+    // Core keywords
     "learning clock",
     "learn to tell time",
     "teaching clock",
@@ -22,16 +22,30 @@ export const metadata: Metadata = {
     "learn to tell the time watch",
     "teaching time clock",
     "time teaching watch",
-    // Highly relevant additional search queries
+    // High-volume search queries
     "interactive clock for kids",
     "how to read analog clock",
     "telling time games",
     "kids clock learning app",
     "analog clock practice",
+    "tell time clock online free",
+    // Grade-specific targeting
     "telling time game for kindergarten",
     "telling time game first grade",
+    "telling time game for 1st grade",
+    "telling time game for 2nd grade",
     "elementary clock reading game",
-    "tell time clock online free",
+    // Intent-based keywords
+    "what time is it game for kids",
+    "clock reading practice",
+    "telling time game online free",
+    "analog clock for kids online",
+    "interactive clock online",
+    "clock face learning tool",
+    // Skill-level keywords
+    "telling time to the hour",
+    "telling time to the half hour",
+    "telling time to 5 minutes",
   ],
   openGraph: {
     title: "Tick Tock Time | Interactive Learning Clock for Kids",
@@ -66,25 +80,38 @@ export const metadata: Metadata = {
 };
 
 // Structured Schema Data (JSON-LD) for Google Rich Snippets
-const jsonLd = {
+const appJsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "Tick Tock Time",
+  "url": "https://www.kidslearningclock.fun",
   "operatingSystem": "All",
   "applicationCategory": "EducationalApplication",
-  "genre": "Educational Game / Kids Math",
-  "description": "Tick Tock Time is an interactive learning clock game designed for kids. It teaches children how to read analog clocks through Match the Time and Set the Clock interactive challenges.",
+  "genre": "Educational Game",
+  "description": "Tick Tock Time is a free interactive learning clock game for kids aged 4–8. Children learn to read analog clocks through two game modes: Match the Time (multiple-choice quiz) and Set the Clock (drag the clock hands). Progressive difficulty from full hours to 5-minute intervals.",
   "inLanguage": "en",
+  "isAccessibleForFree": true,
   "audience": {
-    "@type": "PeopleAudience",
-    "suggestedMinAge": 4,
-    "suggestedMaxAge": 8,
+    "@type": "EducationalAudience",
+    "educationalRole": "student",
+    "audienceType": "children",
   },
+  "typicalAgeRange": "4-8",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD",
   },
+};
+
+// WebSite schema for sitelinks search box eligibility
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tick Tock Time",
+  "alternateName": "Kids Learning Clock",
+  "url": "https://www.kidslearningclock.fun",
+  "description": "Free interactive learning clock games for kids — learn to tell time by reading and setting analog clocks.",
 };
 
 export default function RootLayout({
@@ -101,7 +128,11 @@ export default function RootLayout({
         {/* Injecting Structured Schema Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className="font-sans min-h-full flex flex-col bg-slate-50 text-slate-800">
