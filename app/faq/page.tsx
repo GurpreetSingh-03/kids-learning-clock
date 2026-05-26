@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
@@ -97,7 +97,7 @@ function AccordionItem({
   onToggle: () => void;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={false}
       className="border-2 border-purple-100 rounded-2xl overflow-hidden bg-white/70"
     >
@@ -114,7 +114,7 @@ function AccordionItem({
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
@@ -126,10 +126,10 @@ function AccordionItem({
                 {item.answer}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -163,7 +163,7 @@ export default function FaqPage() {
         </div>
 
         {/* Content Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
@@ -171,7 +171,7 @@ export default function FaqPage() {
         >
           {/* Header with Mascot */}
           <div className="flex flex-col sm:flex-row items-center gap-5 mb-8 border-b-2 border-slate-100 pb-6">
-            <motion.div
+            <m.div
               animate={{ y: [0, -6, 0], rotate: [0, 3, -3, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
               className="w-20 h-20 relative flex-shrink-0 drop-shadow-md rounded-full bg-white p-2 border border-purple-200"
@@ -183,7 +183,7 @@ export default function FaqPage() {
                 height={80}
                 className="object-contain"
               />
-            </motion.div>
+            </m.div>
             <div className="text-center sm:text-left">
               <h1 className="text-3xl font-black text-purple-700 font-sans tracking-wide">
                 Frequently Asked Questions
@@ -216,7 +216,7 @@ export default function FaqPage() {
                   variant="primary"
                   className="px-6 py-2.5 w-full sm:w-auto"
                 >
-                  Contact Us 💌
+                  Ask Toby a Question 💌
                 </AnimatedButton>
               </Link>
               <Link href="/">
@@ -224,12 +224,12 @@ export default function FaqPage() {
                   variant="ghost"
                   className="px-6 py-2.5 w-full sm:w-auto"
                 >
-                  Play the Game ⏰
+                  Play Games
                 </AnimatedButton>
               </Link>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );

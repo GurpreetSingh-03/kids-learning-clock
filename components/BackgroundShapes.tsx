@@ -1,6 +1,5 @@
 "use client";
 
-import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface FloatingItem {
@@ -43,10 +42,33 @@ export default function BackgroundShapes() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 bg-gradient-to-b from-sky-100 via-indigo-50 to-purple-100/60 min-h-screen">
+      {/* Inject custom highly-optimized hardware-accelerated CSS animations */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes floatBlob1 {
+          0%, 100% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(45px, -50px) scale(1.08); }
+          66% { transform: translate(-35px, 40px) scale(0.95); }
+        }
+        @keyframes floatBlob2 {
+          0%, 100% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(-40px, 45px) scale(0.92); }
+          66% { transform: translate(45px, -35px) scale(1.05); }
+        }
+        @keyframes driftCloud {
+          0% { transform: translateX(-30vw); }
+          100% { transform: translateX(130vw); }
+        }
+        @keyframes pulseStar {
+          0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+          50% { transform: translateY(-10px) rotate(180deg) scale(1.1); }
+        }
+      `}} />
+
       {shapes.map((shape) => {
         if (shape.type === "blob") {
+          const animName = shape.id % 2 === 0 ? "floatBlob1" : "floatBlob2";
           return (
-            <m.div
+            <div
               key={shape.id}
               className={`absolute rounded-full filter blur-3xl ${shape.color}`}
               style={{
@@ -54,18 +76,13 @@ export default function BackgroundShapes() {
                 height: shape.size,
                 left: `${shape.x}%`,
                 top: `${shape.y}%`,
-              }}
-              animate={{
-                x: [0, 50, -40, 0],
-                y: [0, -60, 45, 0],
-                scale: [1, 1.12, 0.92, 1],
-              }}
-              transition={{
-                duration: shape.duration,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-                delay: shape.delay,
+                animationName: animName,
+                animationDuration: `${shape.duration}s`,
+                animationTimingFunction: "ease-in-out",
+                animationIterationCount: "infinite",
+                animationDelay: `${shape.delay}s`,
+                animationDirection: "alternate",
+                willChange: "transform",
               }}
             />
           );
@@ -73,32 +90,30 @@ export default function BackgroundShapes() {
 
         if (shape.type === "cloud") {
           return (
-            <m.svg
+            <svg
               key={shape.id}
               className={`absolute ${shape.color} filter drop-shadow-sm`}
               style={{
                 top: `${shape.y}%`,
                 width: shape.size,
+                animationName: "driftCloud",
+                animationDuration: `${shape.duration}s`,
+                animationTimingFunction: "linear",
+                animationIterationCount: "infinite",
+                animationDelay: `${shape.delay}s`,
+                willChange: "transform",
               }}
               viewBox="0 0 64 64"
               fill="currentColor"
-              initial={{ x: "-20vw" }}
-              animate={{ x: "120vw" }}
-              transition={{
-                duration: shape.duration,
-                repeat: Infinity,
-                ease: "linear",
-                delay: shape.delay,
-              }}
             >
               <path d="M44 24a12 12 0 00-22.6-5.2A16 16 0 006 32a16 16 0 0016 16h22a14 14 0 000-28z" />
-            </m.svg>
+            </svg>
           );
         }
 
         // Rotating Stars
         return (
-          <m.svg
+          <svg
             key={shape.id}
             className={`absolute ${shape.color}`}
             style={{
@@ -106,23 +121,18 @@ export default function BackgroundShapes() {
               top: `${shape.y}%`,
               width: shape.size,
               height: shape.size,
+              animationName: "pulseStar",
+              animationDuration: `${shape.duration}s`,
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
+              animationDelay: `${shape.delay}s`,
+              willChange: "transform",
             }}
             viewBox="0 0 24 24"
             fill="currentColor"
-            animate={{
-              y: [0, -12, 0],
-              rotate: [0, 360],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: shape.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: shape.delay,
-            }}
           >
             <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.41l8.2-1.192z" />
-          </m.svg>
+          </svg>
         );
       })}
     </div>

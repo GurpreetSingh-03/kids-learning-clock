@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Mail, MessageSquare, Send, User, CheckCircle, Sparkles } from "lucide-react";
@@ -57,7 +57,7 @@ export default function ContactPage() {
         </div>
 
         {/* Content Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
@@ -65,7 +65,7 @@ export default function ContactPage() {
         >
           {/* Header with Mascot */}
           <div className="flex flex-col sm:flex-row items-center gap-5 mb-8 border-b-2 border-slate-100 pb-6">
-            <motion.div
+            <m.div
               animate={{ y: [0, -6, 0] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
               className="w-20 h-20 relative flex-shrink-0 drop-shadow-md rounded-full bg-white p-2 border border-purple-200"
@@ -77,7 +77,7 @@ export default function ContactPage() {
                 height={80}
                 className="object-contain"
               />
-            </motion.div>
+            </m.div>
             <div className="text-center sm:text-left">
               <h1 className="text-3xl font-black text-purple-700 font-sans tracking-wide">
                 Get in Touch
@@ -92,20 +92,20 @@ export default function ContactPage() {
           <AnimatePresence mode="wait">
             {isSubmitted ? (
               /* Success State */
-              <motion.div
+              <m.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: "spring", stiffness: 120 }}
                 className="flex flex-col items-center text-center py-10 gap-4"
               >
-                <motion.div
+                <m.div
                   animate={{ scale: [1, 1.15, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                   className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center border-4 border-emerald-200"
                 >
                   <CheckCircle className="w-10 h-10 text-emerald-600" />
-                </motion.div>
+                </m.div>
                 <h2 className="text-2xl font-black text-emerald-700">
                   Ready to Send! ✉️
                 </h2>
@@ -136,10 +136,10 @@ export default function ContactPage() {
                     Write New Message
                   </AnimatedButton>
                 </div>
-              </motion.div>
+              </m.div>
             ) : (
               /* Contact Form */
-              <motion.form
+              <m.form
                 key="form"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -242,13 +242,13 @@ export default function ContactPage() {
                 >
                   {isSending ? (
                     <>
-                      <motion.span
+                      <m.span
                         animate={{ rotate: 360 }}
                         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                         className="inline-block"
                       >
                         ⏳
-                      </motion.span>
+                      </m.span>
                       Sending...
                     </>
                   ) : (
@@ -258,10 +258,10 @@ export default function ContactPage() {
                     </>
                   )}
                 </AnimatedButton>
-              </motion.form>
+              </m.form>
             )}
           </AnimatePresence>
-
+ 
           {/* Direct Contact Info */}
           <div className="mt-8 pt-6 border-t-2 border-slate-100 text-center">
             <p className="text-sm text-slate-500 font-bold">
@@ -274,7 +274,7 @@ export default function ContactPage() {
               kidslearningclock@gmail.com
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );

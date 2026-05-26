@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -127,7 +127,7 @@ export default function BlogPage() {
         </div>
 
         {/* Header Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
@@ -135,7 +135,7 @@ export default function BlogPage() {
         >
           {/* Hero with Mascot */}
           <div className="flex flex-col sm:flex-row items-center gap-5 mb-6 border-b-2 border-slate-100 pb-6">
-            <motion.div
+            <m.div
               animate={{ y: [0, -6, 0], rotate: [0, 2, -2, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
               className="w-20 h-20 relative flex-shrink-0 drop-shadow-md rounded-full bg-white p-2 border border-purple-200"
@@ -147,14 +147,14 @@ export default function BlogPage() {
                 height={80}
                 className="object-contain"
               />
-              <motion.span
+              <m.span
                 animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="absolute -top-1 -right-1 text-lg select-none"
               >
                 ✨
-              </motion.span>
-            </motion.div>
+              </m.span>
+            </m.div>
             <div className="text-center sm:text-left">
               <h1 className="text-3xl font-black text-purple-700 font-sans tracking-wide">
                 Tips & Resources
@@ -167,7 +167,7 @@ export default function BlogPage() {
           </div>
 
           {/* Articles Grid */}
-          <motion.div
+          <m.div
             variants={containerVariants}
             initial="hidden"
             animate="show"
@@ -178,7 +178,7 @@ export default function BlogPage() {
               const IconComp = article.icon;
 
               return (
-                <motion.div key={article.slug} variants={cardVariants}>
+                <m.div key={article.slug} variants={cardVariants}>
                   <Link href={`/blog/${article.slug}`} className="block">
                     <article
                       className={`group ${colors.bg} border-2 ${colors.border} rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer relative overflow-hidden`}
@@ -221,10 +221,10 @@ export default function BlogPage() {
                       </div>
                     </article>
                   </Link>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
 
           {/* Newsletter / CTA Section */}
           <div className="mt-8 pt-6 border-t-2 border-slate-100">
@@ -258,7 +258,7 @@ export default function BlogPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, Search, ArrowRight } from "lucide-react";
@@ -14,7 +14,7 @@ export default function NotFound() {
 
       <div className="w-full max-w-lg z-10 flex flex-col items-center gap-6">
         {/* Confused Mascot */}
-        <motion.div
+        <m.div
           animate={{
             y: [0, -8, 0],
             rotate: [0, -5, 5, 0],
@@ -30,38 +30,38 @@ export default function NotFound() {
             className="object-contain"
           />
           {/* Floating question marks */}
-          <motion.span
+          <m.span
             animate={{ y: [0, -10, 0], opacity: [0.5, 1, 0.5] }}
             transition={{ repeat: Infinity, duration: 1.8 }}
             className="absolute -top-2 -right-2 text-3xl select-none"
           >
             ❓
-          </motion.span>
-          <motion.span
+          </m.span>
+          <m.span
             animate={{ y: [0, -8, 0], opacity: [0.5, 1, 0.5] }}
             transition={{ repeat: Infinity, duration: 2.2, delay: 0.5 }}
             className="absolute -top-1 -left-3 text-2xl select-none"
           >
             🔍
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
 
         {/* Content Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
           className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-8 shadow-xl text-center w-full"
         >
           {/* 404 Number */}
-          <motion.h1
+          <m.h1
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 120, delay: 0.2 }}
             className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-sky-500 to-orange-400 select-none"
           >
             404
-          </motion.h1>
+          </m.h1>
 
           {/* Speech Bubble */}
           <div className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-4 mt-4 mb-6">
@@ -107,7 +107,7 @@ export default function NotFound() {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   );
