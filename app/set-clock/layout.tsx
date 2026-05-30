@@ -28,11 +28,12 @@ export const metadata: Metadata = {
 // LearningResource schema for Education rich results
 const setClockJsonLd = {
   "@context": "https://schema.org",
-  "@type": ["WebApplication", "LearningResource"],
+  "@type": ["WebApplication", "LearningResource", "Game"],
   name: "Set the Clock — Interactive Telling Time Practice",
   url: "https://www.kidslearningclock.fun/set-clock",
   description:
     "An interactive game where children drag the hour and minute hands on an analog clock face to match a target digital time. Includes real-time hints and progressive difficulty from full hours to 5-minute intervals.",
+  genre: "Educational Game",
   educationalLevel: "Kindergarten through 2nd Grade",
   teaches: "Setting analog clock hands and telling time",
   educationalUse: "practice",

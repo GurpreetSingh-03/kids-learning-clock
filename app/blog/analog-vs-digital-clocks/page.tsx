@@ -88,7 +88,7 @@ export default function AnalogVsDigitalClocks() {
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
               <li><strong className="text-purple-700">Start with analog.</strong> Teach children to read the clock face first, beginning with hours and progressing to minutes.</li>
               <li><strong className="text-purple-700">Show the connection.</strong> When your child reads a time on an analog clock, show them the same time displayed digitally. Ask: &quot;See? 3:15 on this clock looks like this on your tablet.&quot;</li>
-              <li><strong className="text-purple-700">Practice both formats.</strong> Interactive games like <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">Match the Time</Link> present an analog clock and ask children to select the matching digital time — building the bridge between both formats naturally.</li>
+              <li><strong className="text-purple-700">Practice both formats.</strong> Interactive games like our online <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">clock reading quiz</Link> present an analog clock and ask children to select the matching digital time — building the bridge between both formats naturally.</li>
               <li><strong className="text-purple-700">Keep analog clocks visible.</strong> Having an analog clock on the wall at home or in the classroom gives children constant, passive exposure to reading time.</li>
             </ul>
 

@@ -31,9 +31,14 @@ export const metadata: Metadata = {
     "tell time clock online free",
     // Grade-specific targeting
     "telling time game for kindergarten",
+    "telling time games for kindergarten",
     "telling time game first grade",
     "telling time game for 1st grade",
+    "telling time games for 1st grade",
+    "telling time games 1st grade",
     "telling time game for 2nd grade",
+    "interactive clock for 2nd grade",
+    "telling time games for 2nd grade",
     "elementary clock reading game",
     // Intent-based keywords
     "what time is it game for kids",

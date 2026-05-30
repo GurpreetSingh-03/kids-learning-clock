@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Sparkles, Smile, RefreshCw } from "lucide-react";
 import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -36,7 +37,15 @@ const WRONG_FEEDBACK = [
   "Oops! Let's check the numbers. Try again next time! 🧸",
 ];
 
-export default function MatchTimeGame() {
+export function MatchTimeGame({
+  grade,
+  backUrl = "/",
+  onExit,
+}: {
+  grade?: "kindergarten" | "1st-grade" | "2nd-grade";
+  backUrl?: string;
+  onExit?: () => void;
+}) {
   const { playCorrect, playIncorrect } = useSound();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -53,8 +62,18 @@ export default function MatchTimeGame() {
   const [mascotText, setMascotText] = useState("Let's tell the time! Look at the clock hands!");
   const [showResults, setShowResults] = useState(false);
 
-  // Ramps up difficulty: 1 (Q1-2), 2 (Q3-5), 3 (Q6-8), 4 (Q9-10)
+  // Ramps up difficulty based on index and optional grade target
   const getDifficultyForIndex = (index: number): number => {
+    if (grade === "kindergarten") return 1; // Hours only
+    if (grade === "1st-grade") {
+      return index < 5 ? 1 : 2; // Hours and Half-hours
+    }
+    if (grade === "2nd-grade") {
+      if (index < 3) return 2; // Start with half hours
+      if (index < 7) return 3; // Introduce quarter hours
+      return 4; // End with 5-minute intervals
+    }
+    // Default progression
     if (index < 2) return 1;
     if (index < 5) return 2;
     if (index < 8) return 3;
@@ -135,19 +154,32 @@ export default function MatchTimeGame() {
         score={score}
         totalQuestions={TOTAL_QUESTIONS}
         onPlayAgain={handleRestart}
-        onHome={() => window.location.assign("/")}
+        onHome={() => {
+          if (onExit) {
+            onExit();
+          } else {
+            window.location.assign(backUrl);
+          }
+        }}
       />
 
       <div className="w-full max-w-2xl flex flex-col gap-3 md:gap-4 z-10">
         {/* Back Navigation & Breadcrumbs */}
         <div className="w-full flex items-center gap-3 select-none">
-          <Link href="/">
-            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
-              <ArrowLeft className="w-4 h-4" />
-              Exit Game
-            </span>
-          </Link>
-          <Breadcrumbs items={[{ name: "Match the Time", href: "/match-time" }]} />
+          <button
+            onClick={() => {
+              if (onExit) {
+                onExit();
+              } else {
+                window.location.assign(backUrl);
+              }
+            }}
+            className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Exit Game
+          </button>
+          <Breadcrumbs items={[{ name: "Match the Time", href: `/match-time${grade ? `?grade=${grade}` : ""}` }]} />
         </div>
 
         {/* Compact Header Layout: Side by Side */}
@@ -292,5 +324,23 @@ export default function MatchTimeGame() {
         </m.div>
       </div>
     </main>
+  );
+}
+
+function MatchTimePageContent() {
+  const searchParams = useSearchParams();
+  const grade = searchParams.get("grade") as any;
+  return <MatchTimeGame grade={grade} backUrl="/" />;
+}
+
+export default function MatchTimePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans text-purple-600 text-xl font-bold">
+        Loading Tick Tock Quiz... ⏰
+      </div>
+    }>
+      <MatchTimePageContent />
+    </Suspense>
   );
 }

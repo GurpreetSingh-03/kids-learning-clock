@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { Sparkles, HelpCircle, FastForward, Check, ArrowLeft } from "lucide-react";
 import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -28,7 +29,15 @@ const CORRECT_FEEDBACK = [
   "Double stars! Great job! ✨",
 ];
 
-export default function SetClockGame() {
+export function SetClockGame({
+  grade,
+  backUrl = "/",
+  onExit,
+}: {
+  grade?: "kindergarten" | "1st-grade" | "2nd-grade";
+  backUrl?: string;
+  onExit?: () => void;
+}) {
   const { playCorrect, playIncorrect } = useSound();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -49,8 +58,18 @@ export default function SetClockGame() {
   // Shake trigger
   const [shakeTrigger, setShakeTrigger] = useState(false);
 
-  // Ramps up difficulty
+  // Ramps up difficulty based on grade and question index
   const getDifficultyForIndex = (index: number): number => {
+    if (grade === "kindergarten") return 1; // Hours only
+    if (grade === "1st-grade") {
+      return index < 5 ? 1 : 2; // Hours and half-hours
+    }
+    if (grade === "2nd-grade") {
+      if (index < 3) return 2; // Half hours
+      if (index < 7) return 3; // Quarter hours
+      return 4; // 5-minute intervals
+    }
+    // Default
     if (index < 2) return 1;
     if (index < 5) return 2;
     if (index < 8) return 3;
@@ -173,19 +192,32 @@ export default function SetClockGame() {
         score={score}
         totalQuestions={TOTAL_QUESTIONS}
         onPlayAgain={handleRestart}
-        onHome={() => window.location.assign("/")}
+        onHome={() => {
+          if (onExit) {
+            onExit();
+          } else {
+            window.location.assign(backUrl);
+          }
+        }}
       />
 
       <div className="w-full max-w-2xl flex flex-col gap-3 md:gap-4 z-10">
         {/* Back Navigation & Breadcrumbs */}
         <div className="w-full flex items-center gap-3 select-none">
-          <Link href="/">
-            <span className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm">
-              <ArrowLeft className="w-4 h-4" />
-              Exit Game
-            </span>
-          </Link>
-          <Breadcrumbs items={[{ name: "Set the Clock", href: "/set-clock" }]} />
+          <button
+            onClick={() => {
+              if (onExit) {
+                onExit();
+              } else {
+                window.location.assign(backUrl);
+              }
+            }}
+            className="p-2.5 bg-white/80 hover:bg-white text-purple-600 rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center gap-2 cursor-pointer font-bold text-xs md:text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Exit Game
+          </button>
+          <Breadcrumbs items={[{ name: "Set the Clock", href: `/set-clock${grade ? `?grade=${grade}` : ""}` }]} />
         </div>
 
         {/* Compact Header Layout: Side by Side */}
@@ -330,5 +362,23 @@ export default function SetClockGame() {
         </m.div>
       </div>
     </main>
+  );
+}
+
+function SetClockPageContent() {
+  const searchParams = useSearchParams();
+  const grade = searchParams.get("grade") as any;
+  return <SetClockGame grade={grade} backUrl="/" />;
+}
+
+export default function SetClockPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans text-purple-600 text-xl font-bold">
+        Loading Set the Clock Game... ⏰
+      </div>
+    }>
+      <SetClockPageContent />
+    </Suspense>
   );
 }

@@ -103,9 +103,9 @@ export default function Home() {
               <div className="md:hidden absolute top-[-16px] left-[50%] translate-x-[-50%] w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[16px] border-b-purple-400" />
               <div className="md:hidden absolute top-[-11px] left-[50%] translate-x-[-50%] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-white" />
 
-              <h2 className="text-xl md:text-2xl font-black text-purple-600 mb-1">
+              <p className="text-xl md:text-2xl font-black text-purple-600 mb-1">
                 Hi! I'm Toby! 👋
-              </h2>
+              </p>
               <p className="text-slate-600 font-extrabold text-base md:text-lg leading-snug">
                 Welcome to my sky castle! Let's learn how to read analog clocks together! ⏰
               </p>
@@ -204,6 +204,13 @@ export default function Home() {
       <div className="mt-8 flex flex-col items-center gap-2 z-10 select-none">
         <div className="text-slate-500 font-bold text-xs md:text-sm text-center bg-white/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
           🏫 Designed for elementary math learners • Free & Private
+        </div>
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-black text-purple-500 mb-1">
+          <Link href="/telling-time-games-kindergarten" className="hover:text-purple-700 transition-colors">Kindergarten Clock Games</Link>
+          <span className="text-slate-300">•</span>
+          <Link href="/telling-time-games-1st-grade" className="hover:text-purple-700 transition-colors">1st Grade Telling Time Games</Link>
+          <span className="text-slate-300">•</span>
+          <Link href="/interactive-clock-for-2nd-grade" className="hover:text-purple-700 transition-colors">2nd Grade Interactive Clock</Link>
         </div>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-black text-purple-600">
           <Link href="/about" className="hover:text-purple-800 transition-colors">About & How to Play</Link>

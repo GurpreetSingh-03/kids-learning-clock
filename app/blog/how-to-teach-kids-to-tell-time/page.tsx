@@ -99,7 +99,7 @@ export default function HowToTeachKidsToTellTime() {
               </p>
             </div>
             <p>
-              Practice this with many examples. Ask your child to identify times like 1:00, 5:00, 9:00, and 12:00. The <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">Match the Time</Link> game starts at this level, making it an excellent practice tool.
+              Practice this with many examples. Ask your child to identify times like 1:00, 5:00, 9:00, and 12:00. Our interactive <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">clock reading quiz</Link> starts at this level, making it an excellent practice tool.
             </p>
 
             <h2 className="text-2xl font-extrabold text-purple-700 mt-8 mb-3">
@@ -138,8 +138,8 @@ export default function HowToTeachKidsToTellTime() {
               The best way to solidify clock-reading skills is through hands-on practice. Interactive tools where children can physically move clock hands build a much deeper understanding than passive observation:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-slate-600">
-              <li><strong className="text-purple-700">Setting clock hands:</strong> The <Link href="/set-clock" className="text-purple-600 font-extrabold underline hover:text-purple-800">Set the Clock</Link> game lets children drag the hour and minute hands to match a target time, with helpful hints along the way.</li>
-              <li><strong className="text-purple-700">Reading clocks:</strong> The <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">Match the Time</Link> game presents an analog clock and asks children to identify the correct digital time from multiple choices.</li>
+              <li><strong className="text-purple-700">Setting clock hands:</strong> Our online <Link href="/set-clock" className="text-purple-600 font-extrabold underline hover:text-purple-800">telling time game for kids</Link> lets children drag the hour and minute hands to match a target time, with helpful hints along the way.</li>
+              <li><strong className="text-purple-700">Reading clocks:</strong> Our free <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">analog clock quiz</Link> presents an analog clock and asks children to identify the correct digital time from multiple choices.</li>
               <li><strong className="text-purple-700">Connecting to daily life:</strong> Point out clocks around the house and ask, &quot;What time is it now?&quot; throughout the day.</li>
             </ul>
 

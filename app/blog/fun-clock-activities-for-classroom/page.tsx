@@ -82,7 +82,7 @@ export default function FunClockActivities() {
               Activity 4: Interactive Clock Games on the Smartboard
             </h2>
             <p>
-              Project an interactive clock game onto the classroom smartboard and have students take turns answering. With tools like <Link href="/" className="text-purple-600 font-extrabold underline hover:text-purple-800">Tick Tock Time</Link>, you can run through the <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">Match the Time</Link> game as a whole-class activity, with students voting or raising hands to select their answer. The progressive difficulty (from full hours to 5-minute intervals) naturally differentiates for mixed-ability classrooms.
+              Project an interactive clock game onto the classroom smartboard and have students take turns answering. With tools like <Link href="/" className="text-purple-600 font-extrabold underline hover:text-purple-800">Tick Tock Time</Link>, you can run through our online <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">clock reading quiz</Link> as a whole-class activity, with students voting or raising hands to select their answer. The progressive difficulty (from full hours to 5-minute intervals) naturally differentiates for mixed-ability classrooms.
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
               <p className="text-amber-800 font-bold text-sm">

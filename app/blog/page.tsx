@@ -234,7 +234,7 @@ export default function BlogPage() {
               </h3>
               <p className="text-slate-500 font-bold text-sm mb-4">
                 We&apos;re working on in-depth guides and activities. In the meantime,
-                try our interactive games!
+                practice skills with our free clock reading quiz and interactive telling time game for kids!
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/match-time">

@@ -70,7 +70,7 @@ export default function TimeTellingMilestones() {
               <li>Can distinguish between the short (hour) and long (minute) hands</li>
               <li>May begin skip counting by 5s</li>
             </ul>
-            <p><strong className="text-purple-700">How to help:</strong> Focus on o&apos;clock and half-past times. Use interactive tools like the <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">Match the Time</Link> game at Level 1 and Level 2 difficulty — these cover exactly these skills.</p>
+            <p><strong className="text-purple-700">How to help:</strong> Focus on o&apos;clock and half-past times. Use interactive tools like our <Link href="/match-time" className="text-purple-600 font-extrabold underline hover:text-purple-800">clock reading quiz</Link> at Level 1 and Level 2 difficulty — these cover exactly these skills.</p>
 
             <h2 className="text-2xl font-extrabold text-purple-700 mt-8 mb-3">
               Ages 6–7: Adding Minutes
@@ -83,7 +83,7 @@ export default function TimeTellingMilestones() {
               <li>Can skip count by 5s reliably</li>
               <li>Starts reading time to the nearest 5 minutes with support</li>
             </ul>
-            <p><strong className="text-purple-700">How to help:</strong> Introduce 5-minute intervals. Practice with the <Link href="/set-clock" className="text-purple-600 font-extrabold underline hover:text-purple-800">Set the Clock</Link> game where children physically drag clock hands — this builds deep understanding of how hand positions map to specific times.</p>
+            <p><strong className="text-purple-700">How to help:</strong> Introduce 5-minute intervals. Practice with our online <Link href="/set-clock" className="text-purple-600 font-extrabold underline hover:text-purple-800">telling time game for kids</Link> where children physically drag clock hands — this builds deep understanding of how hand positions map to specific times.</p>
 
             <h2 className="text-2xl font-extrabold text-purple-700 mt-8 mb-3">
               Ages 7–8: Mastery and Real-World Application

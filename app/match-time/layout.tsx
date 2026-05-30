@@ -28,11 +28,12 @@ export const metadata: Metadata = {
 // LearningResource + Quiz schema for Education rich results
 const matchTimeJsonLd = {
   "@context": "https://schema.org",
-  "@type": ["WebApplication", "LearningResource"],
+  "@type": ["WebApplication", "LearningResource", "Game"],
   name: "Match the Time — Clock Reading Game",
   url: "https://www.kidslearningclock.fun/match-time",
   description:
     "An interactive multiple-choice game where children look at an analog clock face and select the correct digital time. Difficulty progresses from reading full hours to 5-minute intervals across 10 questions.",
+  genre: "Educational Game",
   educationalLevel: "Kindergarten through 2nd Grade",
   teaches: "Reading analog clocks and telling time",
   educationalUse: "practice",
