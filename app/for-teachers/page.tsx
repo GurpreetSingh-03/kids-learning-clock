@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Monitor, Tablet, GraduationCap, Shield, Clock, Users } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 
 export default function ForTeachersPage() {
   return (
@@ -23,6 +24,13 @@ export default function ForTeachersPage() {
             For Teachers
           </div>
         </div>
+
+        {/* Hero Illustration */}
+        <SceneHero
+          src="/scenes/teachers.webp"
+          alt="Toby the clock mascot as a friendly teacher at a chalkboard showing a clock diagram"
+          priority
+        />
 
         <div className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-6 md:p-10 shadow-xl">
           {/* Header */}

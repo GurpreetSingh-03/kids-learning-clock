@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
 import FramerMotionProvider from "@/components/FramerMotionProvider";
+import SettingsProvider from "@/components/SettingsProvider";
+import SettingsBar from "@/components/SettingsBar";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -10,6 +12,7 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.kidslearningclock.fun"),
   title: "Tick Tock Time | Interactive Learning Clock & Telling Time Game for Kids",
   description: "Learn to tell time with Tick Tock Time, the ultimate free online teaching clock game! Help children ages 4-8 read analog clocks through fun matching & setting challenges.",
   keywords: [
@@ -62,8 +65,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://www.kidslearningclock.fun/og-image.png",
-        width: 512,
-        height: 512,
+        width: 1200,
+        height: 1200,
         alt: "Tick Tock Time — Toby the Clock Buddy mascot",
       },
     ],
@@ -141,9 +144,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans min-h-full flex flex-col bg-slate-50 text-slate-800">
-        <FramerMotionProvider>
-          {children}
-        </FramerMotionProvider>
+        <SettingsProvider>
+          <FramerMotionProvider>
+            <SettingsBar />
+            {children}
+          </FramerMotionProvider>
+        </SettingsProvider>
       </body>
     </html>
   );

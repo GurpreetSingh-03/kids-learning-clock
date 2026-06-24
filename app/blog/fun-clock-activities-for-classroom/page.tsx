@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 
 export default function FunClockActivities() {
   return (
@@ -26,6 +27,13 @@ export default function FunClockActivities() {
             Activities
           </div>
         </div>
+
+        {/* Article Hero Illustration */}
+        <SceneHero
+          src="/scenes/classroom.webp"
+          alt="Toby the clock mascot leading a fun classroom clock craft activity with children"
+          priority
+        />
 
         <div className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-6 md:p-10 shadow-xl">
           <header className="mb-8 border-b-2 border-slate-100 pb-6">

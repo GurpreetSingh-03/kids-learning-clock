@@ -38,14 +38,41 @@ export function getHoursFromAngle(angleDeg: number): number {
   return hours;
 }
 
-// Format time as H:MM
-export function formatTime(hours: number, minutes: number): string {
-  return `${hours}:${minutes.toString().padStart(2, "0")}`;
+// Format time as H:MM (12-hour) or HH:MM (24-hour, zero-padded hour).
+export function formatTime(
+  hours: number,
+  minutes: number,
+  is24h: boolean = false
+): string {
+  const mm = minutes.toString().padStart(2, "0");
+  if (is24h) {
+    return `${hours.toString().padStart(2, "0")}:${mm}`;
+  }
+  return `${hours}:${mm}`;
 }
 
-// Generate random clock times based on level of difficulty (1 to 4)
-export function generateRandomTime(difficulty: number): ClockTime {
-  const hours = Math.floor(Math.random() * 12) + 1; // 1 to 12
+// Convert an analog hour position (1–12) to its on-clock label.
+// Works for any input via modulo, mapping 0/24 → 12.
+export function toAnalogHour(hours: number): number {
+  const h = hours % 12;
+  return h === 0 ? 12 : h;
+}
+
+// Whether a 24-hour time falls in the AM (first) or PM (second) half of the day.
+// Used to disambiguate the analog face in 24-hour mode (e.g. 3 o'clock = 03:00 vs 15:00).
+export function getDayPeriod(hours: number): "am" | "pm" {
+  return hours % 24 < 12 ? "am" : "pm";
+}
+
+// Generate random clock times based on level of difficulty (1 to 4).
+// In 24-hour mode hours span 0–23; otherwise the analog-friendly 1–12.
+export function generateRandomTime(
+  difficulty: number,
+  is24h: boolean = false
+): ClockTime {
+  const hours = is24h
+    ? Math.floor(Math.random() * 24) // 0 to 23
+    : Math.floor(Math.random() * 12) + 1; // 1 to 12
   let minutes = 0;
 
   switch (difficulty) {
@@ -73,14 +100,20 @@ export function generateRandomTime(difficulty: number): ClockTime {
 }
 
 // Generate a set of unique wrong choices for Multiple Choice game
-export function generateMultipleChoiceOptions(correctTime: ClockTime, count: number = 4): string[] {
-  const correctStr = formatTime(correctTime.hours, correctTime.minutes);
+export function generateMultipleChoiceOptions(
+  correctTime: ClockTime,
+  count: number = 4,
+  is24h: boolean = false
+): string[] {
+  const correctStr = formatTime(correctTime.hours, correctTime.minutes, is24h);
   const options = new Set<string>();
   options.add(correctStr);
 
   while (options.size < count) {
     // Generate an option within similar range
-    const randHour = Math.floor(Math.random() * 12) + 1;
+    const randHour = is24h
+      ? Math.floor(Math.random() * 24)
+      : Math.floor(Math.random() * 12) + 1;
     // Generate minutes based on the same kind of intervals as the correct answer
     let randMin = 0;
     if (correctTime.minutes === 0) {
@@ -94,7 +127,7 @@ export function generateMultipleChoiceOptions(correctTime: ClockTime, count: num
       randMin = Math.floor(Math.random() * 12) * 5;
     }
 
-    const optionStr = formatTime(randHour, randMin);
+    const optionStr = formatTime(randHour, randMin, is24h);
     options.add(optionStr);
   }
 

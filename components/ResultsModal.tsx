@@ -3,8 +3,9 @@
 import { m, AnimatePresence } from "framer-motion";
 import { Star, Trophy, ArrowRight, RotateCcw } from "lucide-react";
 import AnimatedButton from "./AnimatedButton";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSound } from "@/hooks/useSound";
+import { recordGame, type GameStats } from "@/utils/progress";
 
 interface ResultsModalProps {
   isOpen: boolean;
@@ -23,6 +24,8 @@ export default function ResultsModal({
 }: ResultsModalProps) {
   const { playCorrect } = useSound();
   const accuracy = Math.round((score / totalQuestions) * 100);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const recordedRef = useRef(false);
 
   // Determine star rating (0 to 3 stars)
   let starRating = 0;
@@ -34,8 +37,17 @@ export default function ResultsModal({
     if (isOpen) {
       // Play a happy arpeggio when results modal opens
       playCorrect();
+      // Persist the result exactly once per opening (guarded against re-renders).
+      if (!recordedRef.current) {
+        recordedRef.current = true;
+        setStats(recordGame(score));
+      }
+    } else {
+      // Reset so the next completed game records again.
+      recordedRef.current = false;
+      setStats(null);
     }
-  }, [isOpen, playCorrect]);
+  }, [isOpen, playCorrect, score]);
 
   const modalVariants = {
     hidden: { scale: 0.8, opacity: 0, y: 50 },
@@ -157,6 +169,23 @@ export default function ResultsModal({
                 </span>
               </div>
             </div>
+
+            {/* Lifetime rewards — encourages kids to come back and build a streak */}
+            {stats && (
+              <div className="flex flex-wrap justify-center gap-2 w-full -mt-4 mb-8 text-sm font-black">
+                <span className="bg-yellow-100 border border-yellow-200 text-yellow-700 px-3 py-1 rounded-full">
+                  ⭐ {stats.totalStars} total
+                </span>
+                {stats.streak > 1 && (
+                  <span className="bg-orange-100 border border-orange-200 text-orange-700 px-3 py-1 rounded-full">
+                    🔥 {stats.streak}-day streak
+                  </span>
+                )}
+                <span className="bg-purple-100 border border-purple-200 text-purple-700 px-3 py-1 rounded-full">
+                  🏆 Best {stats.bestScore}/{totalQuestions}
+                </span>
+              </div>
+            )}
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-4 w-full">

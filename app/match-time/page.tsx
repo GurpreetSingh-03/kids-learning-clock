@@ -12,8 +12,9 @@ import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import dynamic from "next/dynamic";
-import { generateRandomTime, generateMultipleChoiceOptions, formatTime, ClockTime } from "@/utils/clockLogic";
+import { generateRandomTime, generateMultipleChoiceOptions, formatTime, getDayPeriod, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
+import { useSettings } from "@/components/SettingsProvider";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
 const ConfettiEffect = dynamic(() => import("@/components/ConfettiEffect"), { ssr: false });
@@ -47,6 +48,7 @@ export function MatchTimeGame({
   onExit?: () => void;
 }) {
   const { playCorrect, playIncorrect } = useSound();
+  const { is24h, ready } = useSettings();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   
@@ -83,8 +85,8 @@ export function MatchTimeGame({
   // Generate a new question
   const loadQuestion = useCallback((index: number) => {
     const diff = getDifficultyForIndex(index);
-    const newTime = generateRandomTime(diff);
-    const newOptions = generateMultipleChoiceOptions(newTime, 4);
+    const newTime = generateRandomTime(diff, is24h);
+    const newOptions = generateMultipleChoiceOptions(newTime, 4, is24h);
 
     setCurrentTime(newTime);
     setOptions(newOptions);
@@ -93,12 +95,14 @@ export function MatchTimeGame({
     setIsCorrect(null);
     setConfettiActive(false);
     setMascotText("What time does the clock show?");
-  }, []);
+  }, [is24h]);
 
-  // Initialize first question
+  // Load the current question once settings are hydrated, and reload it if the
+  // 12h/24h format changes mid-game so the displayed options match.
   useEffect(() => {
-    loadQuestion(0);
-  }, [loadQuestion]);
+    if (ready) loadQuestion(questionIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, is24h]);
 
   // Option select handler
   const handleOptionClick = (option: string) => {
@@ -107,7 +111,7 @@ export function MatchTimeGame({
     setSelectedOption(option);
     setIsAnswered(true);
 
-    const correctStr = formatTime(currentTime.hours, currentTime.minutes);
+    const correctStr = formatTime(currentTime.hours, currentTime.minutes, is24h);
     const correct = option === correctStr;
     setIsCorrect(correct);
 
@@ -141,7 +145,8 @@ export function MatchTimeGame({
     loadQuestion(0);
   };
 
-  const correctOptionStr = formatTime(currentTime.hours, currentTime.minutes);
+  const correctOptionStr = formatTime(currentTime.hours, currentTime.minutes, is24h);
+  const dayPeriod = getDayPeriod(currentTime.hours);
 
   return (
     <main className="min-h-screen relative flex flex-col items-center px-4 py-6 md:py-8 overflow-hidden">
@@ -218,6 +223,20 @@ export function MatchTimeGame({
               ? "Level 3: Quarter Hours 🎈"
               : "Level 4: Master Clock 🏆"}
           </div>
+
+          {/* In 24-hour mode the analog face (1–12) is ambiguous, so show an
+              AM/PM cue that tells kids which half of the day it is. */}
+          {is24h && (
+            <div
+              className={`mb-2 flex items-center gap-1.5 px-3 py-0.5 rounded-full font-black text-xs uppercase tracking-wider select-none border ${
+                dayPeriod === "am"
+                  ? "bg-sky-100 border-sky-200 text-sky-700"
+                  : "bg-indigo-900 border-indigo-950 text-indigo-100"
+              }`}
+            >
+              {dayPeriod === "am" ? "☀️ Morning (AM)" : "🌙 Afternoon / Night (PM)"}
+            </div>
+          )}
 
           {/* Clock Face container */}
           <div className="mb-4 bg-white rounded-full p-1.5 border-4 border-sky-100 shadow-md">

@@ -9,6 +9,7 @@ import { MatchTimeGame } from "../match-time/page";
 import { SetClockGame } from "../set-clock/page";
 import AnimatedButton from "@/components/AnimatedButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 import { m } from "framer-motion";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
@@ -58,6 +59,13 @@ export default function SecondGradePage() {
             Age 6 - 8
           </div>
         </div>
+
+        {/* Hero Illustration */}
+        <SceneHero
+          src="/scenes/second-grade.webp"
+          alt="Toby the clock mascot celebrating a second grader reading a clock to five minutes"
+          priority
+        />
 
         {/* Hero Section */}
         <m.div

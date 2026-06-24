@@ -9,6 +9,7 @@ import { MatchTimeGame } from "../match-time/page";
 import { SetClockGame } from "../set-clock/page";
 import AnimatedButton from "@/components/AnimatedButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 import { m } from "framer-motion";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
@@ -58,6 +59,13 @@ export default function KindergartenPage() {
             Age 4 - 5
           </div>
         </div>
+
+        {/* Hero Illustration */}
+        <SceneHero
+          src="/scenes/kindergarten.webp"
+          alt="Toby the clock mascot helping a kindergartner read a full-hour clock with number blocks"
+          priority
+        />
 
         {/* Hero Section */}
         <m.div

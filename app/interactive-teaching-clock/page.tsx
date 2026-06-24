@@ -9,12 +9,14 @@ import AnalogClock from "@/components/AnalogClock";
 import AnimatedButton from "@/components/AnimatedButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useSound } from "@/hooks/useSound";
+import { useSettings } from "@/components/SettingsProvider";
 import { formatTime } from "@/utils/clockLogic";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
 
 export default function InteractiveClockPage() {
   const { muted, toggleMute, playClick, playTick } = useSound();
+  const { is24h } = useSettings();
   const [hours, setHours] = useState(10);
   const [minutes, setMinutes] = useState(10);
   const [isAm, setIsAm] = useState(true);
@@ -178,7 +180,9 @@ export default function InteractiveClockPage() {
                 {showDigital ? (
                   <div className="flex items-center gap-4 select-none">
                     <div className="font-mono text-5xl font-black text-slate-800 tracking-wider">
-                      {formatTime(hours, minutes)}
+                      {is24h
+                        ? formatTime(isAm ? hours % 12 : (hours % 12) + 12, minutes, true)
+                        : formatTime(hours, minutes)}
                     </div>
                     {/* AM/PM Indicator Badge */}
                     <button

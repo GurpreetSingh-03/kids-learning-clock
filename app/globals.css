@@ -9,6 +9,50 @@ body {
   overflow-x: hidden;
 }
 
+/* Smooth in-page scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* On-brand text selection (theme purple) */
+::selection {
+  background-color: #ddd6fe; /* purple-200 */
+  color: #5b21b6; /* purple-800 */
+}
+
+/* Accessible, on-brand focus ring for keyboard users only.
+   The outline automatically follows each element's own border-radius. */
+:focus-visible {
+  outline: 3px solid #a855f7; /* purple-500 */
+  outline-offset: 2px;
+}
+
+/* Slim, themed scrollbar (purple) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c4b5fd transparent; /* purple-300 */
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #c4b5fd; /* purple-300 */
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #a78bfa; /* purple-400 */
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Visually hidden but accessible to screen readers and crawlers */
 .sr-only {
   position: absolute;

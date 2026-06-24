@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { getHourAngle, getMinuteAngle, getMinutesFromAngle, getHoursFromAngle } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
+import { useSettings, type ClockSkin } from "@/components/SettingsProvider";
 
 interface AnalogClockProps {
   hours: number;
@@ -12,6 +13,19 @@ interface AnalogClockProps {
   size?: "sm" | "md" | "lg";
 }
 
+// Face/rim/accent colors per skin. Hands stay blue (hour) + red (minute)
+// across every skin so the in-game "blue/red hand" hints remain accurate.
+// Classes are written as full literal strings so Tailwind can detect them.
+const SKIN_STYLES: Record<
+  ClockSkin,
+  { shadow: string; face: string; rim: string; inner: string; tickMajor: string; tickMinor: string; num: string }
+> = {
+  classic: { shadow: "fill-purple-600/10", face: "fill-amber-50", rim: "stroke-sky-400", inner: "stroke-sky-300", tickMajor: "stroke-purple-400", tickMinor: "stroke-purple-200", num: "fill-purple-700" },
+  candy: { shadow: "fill-pink-500/10", face: "fill-rose-50", rim: "stroke-pink-400", inner: "stroke-pink-300", tickMajor: "stroke-fuchsia-400", tickMinor: "stroke-pink-200", num: "fill-fuchsia-600" },
+  ocean: { shadow: "fill-teal-500/10", face: "fill-cyan-50", rim: "stroke-teal-400", inner: "stroke-teal-300", tickMajor: "stroke-cyan-500", tickMinor: "stroke-cyan-200", num: "fill-teal-700" },
+  sunset: { shadow: "fill-orange-500/10", face: "fill-orange-50", rim: "stroke-amber-400", inner: "stroke-amber-300", tickMajor: "stroke-orange-400", tickMinor: "stroke-orange-200", num: "fill-orange-700" },
+};
+
 export default function AnalogClock({
   hours,
   minutes,
@@ -20,6 +34,8 @@ export default function AnalogClock({
   size = "md",
 }: AnalogClockProps) {
   const { playTick } = useSound();
+  const { skin } = useSettings();
+  const sk = SKIN_STYLES[skin] ?? SKIN_STYLES.classic;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [activeHand, setActiveHand] = useState<"hour" | "minute" | null>(null);
 
@@ -118,14 +134,14 @@ export default function AnalogClock({
         onPointerMove={handlePointerMove}
       >
         {/* Outer Rim Shadow */}
-        <circle cx={center} cy={center} r={radius} className="fill-purple-600/10" />
+        <circle cx={center} cy={center} r={radius} className={sk.shadow} />
 
         {/* Outer Rim Border */}
         <circle
           cx={center}
           cy={center}
           r={radius}
-          className="fill-amber-50 stroke-sky-400 stroke-[10]"
+          className={`${sk.face} ${sk.rim} stroke-[10]`}
         />
 
         {/* Inner Border Ring */}
@@ -133,7 +149,7 @@ export default function AnalogClock({
           cx={center}
           cy={center}
           r={radius - 8}
-          className="fill-none stroke-sky-300 stroke-[2] stroke-dasharray-[4_4]"
+          className={`fill-none ${sk.inner} stroke-[2] stroke-dasharray-[4_4]`}
         />
 
         {/* Clock Ticks */}
@@ -146,8 +162,8 @@ export default function AnalogClock({
             y2={tick.y2}
             className={
               tick.isFiveMin
-                ? "stroke-purple-400 stroke-[3]"
-                : "stroke-purple-200 stroke-[1.5]"
+                ? `${sk.tickMajor} stroke-[3]`
+                : `${sk.tickMinor} stroke-[1.5]`
             }
           />
         ))}
@@ -158,7 +174,7 @@ export default function AnalogClock({
             key={item.num}
             x={item.x}
             y={item.y + 7} // offset vertically for alignment
-            className="fill-purple-700 text-[26px] font-black text-center cursor-default select-none font-sans"
+            className={`${sk.num} text-[26px] font-black text-center cursor-default select-none font-sans`}
             textAnchor="middle"
           >
             {item.num}

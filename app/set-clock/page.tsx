@@ -12,8 +12,9 @@ import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import dynamic from "next/dynamic";
-import { generateRandomTime, formatTime, ClockTime } from "@/utils/clockLogic";
+import { generateRandomTime, formatTime, toAnalogHour, ClockTime } from "@/utils/clockLogic";
 import { useSound } from "@/hooks/useSound";
+import { useSettings } from "@/components/SettingsProvider";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
 const ConfettiEffect = dynamic(() => import("@/components/ConfettiEffect"), { ssr: false });
@@ -39,6 +40,7 @@ export function SetClockGame({
   onExit?: () => void;
 }) {
   const { playCorrect, playIncorrect } = useSound();
+  const { is24h, ready } = useSettings();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -79,12 +81,17 @@ export function SetClockGame({
   // Load a new target time
   const loadQuestion = useCallback((index: number) => {
     const diff = getDifficultyForIndex(index);
-    const newTarget = generateRandomTime(diff);
-    
-    // Ensure starting clock position is NOT equal to target
+    const newTarget = generateRandomTime(diff, is24h);
+
+    // Ensure starting clock position is NOT already at the target. The analog
+    // face only shows 1–12, so compare positions modulo 12 (15:00 and 3:00
+    // share the same hand position).
     let startHours = 12;
     let startMinutes = 0;
-    while (startHours === newTarget.hours && startMinutes === newTarget.minutes) {
+    while (
+      startHours % 12 === newTarget.hours % 12 &&
+      startMinutes === newTarget.minutes
+    ) {
       startHours = Math.floor(Math.random() * 12) + 1;
       startMinutes = Math.floor(Math.random() * 12) * 5;
     }
@@ -96,13 +103,15 @@ export function SetClockGame({
     setIsCorrect(null);
     setShowHint(false);
     setConfettiActive(false);
-    setMascotText(`Can you set the clock to ${formatTime(newTarget.hours, newTarget.minutes)}?`);
-  }, []);
+    setMascotText(`Can you set the clock to ${formatTime(newTarget.hours, newTarget.minutes, is24h)}?`);
+  }, [is24h]);
 
-  // Initialize
+  // Load the current question once settings are hydrated, and reload it if the
+  // 12h/24h format changes mid-game so the target matches the chosen format.
   useEffect(() => {
-    loadQuestion(0);
-  }, [loadQuestion]);
+    if (ready) loadQuestion(questionIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, is24h]);
 
   // Handle hand drag movements from AnalogClock
   const handleTimeChange = (h: number, m: number) => {
@@ -117,9 +126,12 @@ export function SetClockGame({
     }
   };
 
-  // Validate current clock settings
+  // Validate current clock settings. The analog face shows 1–12, so the hour
+  // is compared modulo 12 (e.g. setting the hand to 3 correctly answers 15:00).
   const handleCheckAnswer = () => {
-    const correct = currentHours === targetTime.hours && currentMinutes === targetTime.minutes;
+    const hourMatch = currentHours % 12 === targetTime.hours % 12;
+    const correct = hourMatch && currentMinutes === targetTime.minutes;
+    const targetAnalogHour = toAnalogHour(targetTime.hours);
     setIsCorrect(correct);
     setIsChecked(true);
 
@@ -134,16 +146,16 @@ export function SetClockGame({
       setTimeout(() => setShakeTrigger(false), 500);
 
       // Tailored guiding mascot response
-      if (currentHours === targetTime.hours && currentMinutes !== targetTime.minutes) {
+      if (hourMatch && currentMinutes !== targetTime.minutes) {
         // Hour is correct, minutes wrong
         const minTip = targetTime.minutes === 0 ? "12" : String(targetTime.minutes / 5);
         setMascotText(`Your blue hour hand is perfect! Try moving the red minute hand to point at ${minTip} (${targetTime.minutes} minutes).`);
-      } else if (currentMinutes === targetTime.minutes && currentHours !== targetTime.hours) {
+      } else if (currentMinutes === targetTime.minutes && !hourMatch) {
         // Minutes correct, hour wrong
-        setMascotText(`The red minute hand is in the right spot! Try moving the blue hour hand to ${targetTime.hours}.`);
+        setMascotText(`The red minute hand is in the right spot! Try moving the blue hour hand to ${targetAnalogHour}.`);
       } else {
         // Both wrong
-        setMascotText(`Let's try again! The short blue hand is for hours (${targetTime.hours}), and the long red hand is for minutes (${targetTime.minutes}).`);
+        setMascotText(`Let's try again! The short blue hand is for hours (point it at ${targetAnalogHour}), and the long red hand is for minutes (${targetTime.minutes}).`);
       }
     }
   };
@@ -153,7 +165,7 @@ export function SetClockGame({
     setShowHint(true);
     const minutePosition = targetTime.minutes === 0 ? "12 (top)" : String(targetTime.minutes / 5);
     setMascotText(
-      `Hint: Move the blue hour hand to ${targetTime.hours}, and the red minute hand to point at ${minutePosition}!`
+      `Hint: Move the blue hour hand to ${toAnalogHour(targetTime.hours)}, and the red minute hand to point at ${minutePosition}!`
     );
   };
 
@@ -255,7 +267,7 @@ export function SetClockGame({
               animate={isChecked && isCorrect ? { scale: [1, 1.15, 1] } : {}}
               className="inline-block bg-purple-600 text-white font-mono font-black text-3xl md:text-4xl px-4 py-1.5 rounded-2xl shadow-md border-b-4 border-purple-800"
             >
-              {formatTime(targetTime.hours, targetTime.minutes)}
+              {formatTime(targetTime.hours, targetTime.minutes, is24h)}
             </m.div>
           </div>
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Clock, BookOpen, ArrowRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 
 export default function HowToTeachKidsToTellTime() {
   return (
@@ -27,6 +28,13 @@ export default function HowToTeachKidsToTellTime() {
             Guide
           </div>
         </div>
+
+        {/* Article Hero Illustration */}
+        <SceneHero
+          src="/scenes/teach-time.webp"
+          alt="Toby the clock mascot teaching a young child how to read an analog clock in a sky castle"
+          priority
+        />
 
         {/* Article Card */}
         <div className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-6 md:p-10 shadow-xl">

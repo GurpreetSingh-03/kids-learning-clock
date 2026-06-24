@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Heart, Clock, Sparkles, BookOpen, Shield } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 
 export default function ForParentsPage() {
   return (
@@ -23,6 +24,13 @@ export default function ForParentsPage() {
             For Parents
           </div>
         </div>
+
+        {/* Hero Illustration */}
+        <SceneHero
+          src="/scenes/parents.webp"
+          alt="Toby the clock mascot with a parent and child reading a clock together at home"
+          priority
+        />
 
         <div className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-6 md:p-10 shadow-xl">
           {/* Header */}

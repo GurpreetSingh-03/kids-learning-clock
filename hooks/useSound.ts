@@ -1,26 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
+import { useSettings } from "@/components/SettingsProvider";
 
 export function useSound() {
-  const [muted, setMuted] = useState<boolean>(true);
-
-  // Load mute state from localStorage if available
-  useEffect(() => {
-    const saved = localStorage.getItem("tick-tock-mute");
-    if (saved !== null) {
-      setMuted(saved === "true");
-    } else {
-      // Default to unmuted if the user starts interacting
-      setMuted(false);
-    }
-  }, []);
-
-  const toggleMute = useCallback(() => {
-    setMuted((prev) => {
-      const next = !prev;
-      localStorage.setItem("tick-tock-mute", String(next));
-      return next;
-    });
-  }, []);
+  // Mute state is shared app-wide via SettingsProvider so a single toggle
+  // affects every sound (clicks, ticks, correct/incorrect, results).
+  const { muted, toggleMute } = useSettings();
 
   // Safe Web Audio Context initializer
   const getAudioContext = (): AudioContext | null => {

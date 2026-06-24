@@ -4,6 +4,8 @@ import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import GameCard from "@/components/GameCard";
+import RewardsBadge from "@/components/RewardsBadge";
+import SceneHero from "@/components/SceneHero";
 import dynamic from "next/dynamic";
 
 const BackgroundShapes = dynamic(() => import("@/components/BackgroundShapes"), { ssr: false });
@@ -44,8 +46,13 @@ export default function Home() {
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl z-10">
         
         {/* Mascot & Hero Section */}
-        <div className="flex flex-col items-center text-center mb-10 md:mb-14">
-          
+        <div className="relative isolate flex flex-col items-center text-center mb-10 md:mb-14">
+          {/* Soft on-theme glow for depth behind the hero */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[440px] w-[440px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-300/25 blur-3xl"
+          />
+
           {/* Toby the Mascot - Drifts/Bounces gently */}
           <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-6">
             
@@ -156,6 +163,12 @@ export default function Home() {
 
       {/* Educational Content Section — SEO-rich text for crawlers */}
       <section className="w-full max-w-4xl z-10 mt-12 md:mt-16 px-4">
+        {/* Sky-castle scene illustration */}
+        <SceneHero
+          src="/scenes/sky-castle.webp"
+          alt="Toby the clock mascot waving from his magical sky castle surrounded by floating clock numbers and a rainbow"
+          className="mb-8"
+        />
         <div className="bg-white/80 backdrop-blur-md border-2 border-purple-100 rounded-3xl p-6 md:p-8 shadow-lg">
           <h2 className="text-2xl md:text-3xl font-black text-purple-700 mb-4 text-center">
             Learn to Tell Time with Interactive Clock Games
@@ -205,6 +218,9 @@ export default function Home() {
         <div className="text-slate-500 font-bold text-xs md:text-sm text-center bg-white/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
           🏫 Designed for elementary math learners • Free & Private
         </div>
+
+        {/* Returning players see their accumulated stars & streak */}
+        <RewardsBadge />
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-black text-purple-500 mb-1">
           <Link href="/telling-time-games-kindergarten" className="hover:text-purple-700 transition-colors">Kindergarten Clock Games</Link>
           <span className="text-slate-300">•</span>

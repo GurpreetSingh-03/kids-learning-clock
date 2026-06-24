@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SceneHero from "@/components/SceneHero";
 
 export default function AnalogVsDigitalClocks() {
   return (
@@ -26,6 +27,13 @@ export default function AnalogVsDigitalClocks() {
             Education
           </div>
         </div>
+
+        {/* Article Hero Illustration */}
+        <SceneHero
+          src="/scenes/analog-vs-digital.webp"
+          alt="Toby the clock mascot comparing a friendly analog clock and a digital clock"
+          priority
+        />
 
         {/* Article Card */}
         <div className="bg-white/90 backdrop-blur-md border-4 border-purple-200 rounded-3xl p-6 md:p-10 shadow-xl">

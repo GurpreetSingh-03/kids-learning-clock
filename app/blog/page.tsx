@@ -19,6 +19,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 const BLOG_ARTICLES = [
   {
     slug: "how-to-teach-kids-to-tell-time",
+    image: "/scenes/teach-time.webp",
     title: "How to Teach Kids to Tell Time: A Step-by-Step Guide",
     excerpt:
       "Learn the best strategies for teaching children to read analog clocks, from understanding the hour hand to mastering 5-minute intervals.",
@@ -29,6 +30,7 @@ const BLOG_ARTICLES = [
   },
   {
     slug: "analog-vs-digital-clocks",
+    image: "/scenes/analog-vs-digital.webp",
     title: "Analog vs. Digital Clocks: Why Kids Should Learn Both",
     excerpt:
       "Discover why learning analog clocks builds stronger cognitive skills and spatial reasoning compared to digital-only time reading.",
@@ -39,6 +41,7 @@ const BLOG_ARTICLES = [
   },
   {
     slug: "fun-clock-activities-for-classroom",
+    image: "/scenes/classroom.webp",
     title: "5 Fun Clock Activities for the Classroom",
     excerpt:
       "Engage your students with these creative hands-on activities that make learning to tell time exciting and memorable.",
@@ -49,6 +52,7 @@ const BLOG_ARTICLES = [
   },
   {
     slug: "time-telling-milestones-by-age",
+    image: "/scenes/milestones.webp",
     title: "Time-Telling Milestones: What Kids Should Know by Age",
     excerpt:
       "A parent-friendly breakdown of what clock reading skills to expect at ages 4, 5, 6, 7, and 8 — and how to support each stage.",
@@ -183,6 +187,18 @@ export default function BlogPage() {
                     <article
                       className={`group ${colors.bg} border-2 ${colors.border} rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer relative overflow-hidden`}
                     >
+                      {/* Thumbnail */}
+                      <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-4">
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 360px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      </div>
+
                       {/* Tag */}
                       <div className="flex items-center justify-between mb-3">
                         <span
